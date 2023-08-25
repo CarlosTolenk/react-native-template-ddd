@@ -1,9 +1,11 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer, NavigationProp} from '@react-navigation/native';
-import {HomeScreen} from '../../presentation/screens/Home';
+
 import {HOME, ScreenNames} from './routesPage';
-import {Text, View} from 'react-native';
+
+// Screens
+import {HomeScreen} from '../presentation/screens/Home';
 
 export type RootStackParamList = Record<ScreenNames[number], undefined>;
 export type StackNavigation = NavigationProp<RootStackParamList>;
@@ -20,10 +22,6 @@ const AppRouter = () => {
         />
       </Stack.Navigator>
     </NavigationContainer>
-
-    // <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-    //   <Text>Home Screen</Text>
-    // </View>
   );
 };
 

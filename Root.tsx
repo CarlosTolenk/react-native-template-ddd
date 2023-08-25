@@ -1,8 +1,8 @@
 import React from 'react';
 import AppConfig from './src/App';
 
-const App = () => {
+const Root = () => {
   return <AppConfig />;
 };
 
-export default App;
+export default Root;
