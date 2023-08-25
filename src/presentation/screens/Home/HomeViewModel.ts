@@ -12,8 +12,9 @@ export const useHomeViewModel = (): IHomeViewModel => {
   const httpClient = useInjection<IHttpClient>('IHttpClient');
   const [value, setValue] = useState<string>('');
 
-  function getValue(): void {
-    setValue(`ViewModel ${httpClient.get()}`);
+  async function getValue(): Promise<void> {
+    const result = (await httpClient.get('')) ?? 'NOT';
+    setValue(`ViewModel ${result}`);
   }
 
   return {
