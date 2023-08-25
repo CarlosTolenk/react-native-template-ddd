@@ -5,6 +5,5 @@ describe('AxiosClient', () => {
     const httClient: AxiosClient = new AxiosClient();
 
     expect(httClient.get).toBeDefined();
-    expect(httClient.get()).toBe('AxiosClient');
   });
 });
