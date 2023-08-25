@@ -1,1 +1,3 @@
-export interface IHttpClient {}
+export interface IHttpClient {
+  get(): string;
+}
