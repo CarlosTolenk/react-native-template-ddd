@@ -1,8 +1,7 @@
 import {render} from '@testing-library/react-native';
 import HomeScreen from '../HomeScreen';
-import * as iocProvider from '../../../../container/iocProvider';
 
-jest.mock('../../../../container/iocProvider');
+import * as iocProvider from '../../../../container/iocProvider';
 
 describe('should root', () => {
   test('renders correctly', () => {
