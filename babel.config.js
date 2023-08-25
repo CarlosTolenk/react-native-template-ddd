@@ -3,5 +3,11 @@ module.exports = {
   plugins: [
     '@babel/plugin-transform-class-static-block',
     ['@babel/plugin-proposal-decorators', {version: 'legacy'}],
+    [
+      '@babel/plugin-proposal-class-properties',
+      {
+        loose: true,
+      },
+    ],
   ],
 };

@@ -1,15 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Text, View} from 'react-native';
 
-import {IHttpClient} from '../../../modules/shared/domain/HttpClient';
-import {useInjection} from '../../../container/iocProvider';
+import {useHomeViewModel} from './HomeViewModel';
 
 const HomeScreen = () => {
-  const httpClient = useInjection<IHttpClient>('IHttpClient');
+  const {value, getValue} = useHomeViewModel();
+
+  useEffect(() => {
+    getValue();
+  }, [getValue]);
 
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Home Screen {httpClient.get()}</Text>
+      <Text>Home {value}</Text>
     </View>
   );
 };
