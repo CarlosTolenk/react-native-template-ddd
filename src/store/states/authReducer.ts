@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AuthEmptyState, IAuth} from '../models/auth';
 
-const authSlice = createSlice({
+export const AuthSlice = createSlice({
   name: 'auth',
   initialState: AuthEmptyState,
   reducers: {
@@ -20,5 +20,5 @@ const authSlice = createSlice({
   },
 });
 
-export const {authLogIn, authLogOut, authError} = authSlice.actions;
-export default authSlice.reducer;
+export const {authLogIn, authLogOut, authError} = AuthSlice.actions;
+export default AuthSlice.reducer;
