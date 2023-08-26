@@ -3,7 +3,7 @@ import {configureStore, combineReducers} from '@reduxjs/toolkit';
 import {persistReducer, persistStore} from 'redux-persist';
 
 //Interfaces
-import {AppStore} from './interfaces';
+import {IGlobalStore} from './interfaces';
 
 // States
 import {counterReducer} from './states';
@@ -13,7 +13,7 @@ const persistConfig = {
   storage: AsyncStorage,
 };
 
-const rootReducer = combineReducers<AppStore>({
+const rootReducer = combineReducers<IGlobalStore>({
   counter: counterReducer,
 });
 

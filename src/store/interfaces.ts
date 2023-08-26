@@ -1,5 +1,5 @@
 import {ICounter} from './models/counter';
 
-export interface AppStore {
+export interface IGlobalStore {
   counter: ICounter;
 }
