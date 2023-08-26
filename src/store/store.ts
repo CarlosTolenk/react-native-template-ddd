@@ -6,7 +6,7 @@ import {persistReducer, persistStore} from 'redux-persist';
 import {IGlobalStore} from './interfaces';
 
 // States
-import {counterReducer} from './states';
+import {authReducer} from './states';
 
 const persistConfig = {
   key: 'root',
@@ -14,7 +14,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers<IGlobalStore>({
-  counter: counterReducer,
+  auth: authReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

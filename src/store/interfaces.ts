@@ -1,5 +1,5 @@
-import {ICounter} from './models/counter';
+import {IAuth} from './models/auth';
 
 export interface IGlobalStore {
-  counter: ICounter;
+  auth: IAuth;
 }
