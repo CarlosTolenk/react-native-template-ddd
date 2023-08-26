@@ -1,6 +1,11 @@
 import {useDispatch} from 'react-redux';
-import {authLogIn} from '../../../store/states/authReducer';
-import {IAuth} from '../../../store/models/auth';
+import {useInjection} from '../../../container/iocProvider';
+
+//Use Cases
+import {IAuthLogInUseCase} from '../../../modules/auth/application/LogIn';
+
+// Store
+import {authError, authLogIn} from '../../../store/states/authReducer';
 
 interface ILoginViewModel {
   login(email: string, password: string): void;
@@ -8,20 +13,15 @@ interface ILoginViewModel {
 
 export const useLoginViewModel = (): ILoginViewModel => {
   const dispatch = useDispatch();
+  const useCase = useInjection<IAuthLogInUseCase>('IAuthLogInUseCase');
 
   async function login(email: string, password: string) {
-    console.log('Procesando el login', email, password);
-    const user: IAuth = {
-      userId: 0,
-      name: '',
-      lastName: '',
-      email: '',
-      avatar: '',
-      lastLogin: '',
-      phoneNumber: '',
-      token: 'token',
-    };
-    dispatch(authLogIn(user));
+    try {
+      const user = await useCase.logIn(email, password);
+      dispatch(authLogIn(user));
+    } catch (error) {
+      dispatch(authError('Error'));
+    }
   }
 
   return {login};

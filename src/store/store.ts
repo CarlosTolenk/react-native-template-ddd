@@ -13,7 +13,7 @@ const persistConfig = {
   storage: AsyncStorage,
 };
 
-const rootReducer = combineReducers<IGlobalStore>({
+export const rootReducer = combineReducers<IGlobalStore>({
   auth: authReducer,
 });
 
