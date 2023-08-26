@@ -4,11 +4,7 @@ import {Button, Text, View} from 'react-native';
 import {useHomeViewModel} from './HomeViewModel';
 
 const HomeScreen = () => {
-  const {value, getValue, logOut} = useHomeViewModel();
-
-  useEffect(() => {
-    getValue();
-  }, [getValue]);
+  const {logOut} = useHomeViewModel();
 
   const onHandlerLogOut = () => {
     logOut();
@@ -16,7 +12,7 @@ const HomeScreen = () => {
 
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Home {value}</Text>
+      <Text>Home</Text>
       <Button title="LogOut" onPress={onHandlerLogOut} />
     </View>
   );
