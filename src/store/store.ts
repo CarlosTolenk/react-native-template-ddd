@@ -1,14 +1,30 @@
-import {configureStore} from '@reduxjs/toolkit';
-import {ICounter} from './models/counter';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {configureStore, combineReducers} from '@reduxjs/toolkit';
+import {persistReducer, persistStore} from 'redux-persist';
+
+//Interfaces
+import {AppStore} from './interfaces';
+
+// States
 import {counterReducer} from './states';
 
-export interface AppStore {
-  counter: ICounter;
-}
+const persistConfig = {
+  key: 'root',
+  storage: AsyncStorage,
+};
 
-export default configureStore<AppStore>({
-  reducer: {
-    counter: counterReducer,
-  },
+const rootReducer = combineReducers<AppStore>({
+  counter: counterReducer,
+});
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
   devTools: true,
 });
+export const persist = persistStore(store);

@@ -1,8 +1,9 @@
 import React from 'react';
 import {Dimensions, View} from 'react-native';
 import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
 
-import {store} from './store';
+import {store, persist} from './store';
 import {AppRouter} from './router';
 
 import {container} from './container/ioc';
@@ -15,9 +16,11 @@ const AppConfig = () => {
   return (
     <ProviderInversify container={container}>
       <Provider store={store}>
-        <View style={{height: windowHeight, width: windowWidth}}>
-          <AppRouter />
-        </View>
+        <PersistGate persistor={persist} loading={null}>
+          <View style={{height: windowHeight, width: windowWidth}}>
+            <AppRouter />
+          </View>
+        </PersistGate>
       </Provider>
     </ProviderInversify>
   );

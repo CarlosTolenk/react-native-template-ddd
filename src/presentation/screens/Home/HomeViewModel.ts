@@ -13,8 +13,10 @@ export const useHomeViewModel = (): IHomeViewModel => {
   const [value, setValue] = useState<string>('');
 
   async function getValue(): Promise<void> {
-    const result = (await httpClient.get('')) ?? 'NOT';
-    setValue(`ViewModel ${result}`);
+    const result = await httpClient.get(
+      'https://jsonplaceholder.typicode.com/todos/1',
+    );
+    setValue(`ViewModel ${JSON.stringify(result)}`);
   }
 
   return {
