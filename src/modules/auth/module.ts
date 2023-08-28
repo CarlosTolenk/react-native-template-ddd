@@ -9,6 +9,15 @@ import {AuthLogIn, IAuthLogInUseCase} from './application/LogIn';
 // Infrastructure
 import {AxiosAuthRepository} from './infrastructure/AxiosAuthRepository';
 
+export enum TYPE_AUTH_MODULE {
+  IAuthRepository = 'IAuthRepository',
+  IAuthLogInUseCase = 'IAuthLogInUseCase',
+}
+
 export const moduleAuth = new Container();
-moduleAuth.bind<IAuthRepository>('IAuthRepository').to(AxiosAuthRepository);
-moduleAuth.bind<IAuthLogInUseCase>('IAuthLogInUseCase').to(AuthLogIn);
+moduleAuth
+  .bind<IAuthRepository>(TYPE_AUTH_MODULE.IAuthLogInUseCase)
+  .to(AxiosAuthRepository);
+moduleAuth
+  .bind<IAuthLogInUseCase>(TYPE_AUTH_MODULE.IAuthLogInUseCase)
+  .to(AuthLogIn);

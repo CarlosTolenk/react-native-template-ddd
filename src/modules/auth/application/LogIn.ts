@@ -2,6 +2,7 @@ import {injectable} from 'inversify';
 import {IAuthRepository} from '../domain/AuthRepository';
 import {Auth} from '../domain/Auth';
 import {container} from '../../../container/ioc';
+import {TYPE_AUTH_MODULE} from '../module';
 
 export interface IAuthLogInUseCase {
   logIn(email: string, password: string): Promise<Auth>;
@@ -12,7 +13,9 @@ export class AuthLogIn implements IAuthLogInUseCase {
   private repository: IAuthRepository;
 
   constructor() {
-    this.repository = container.get<IAuthRepository>('IAuthRepository');
+    this.repository = container.get<IAuthRepository>(
+      TYPE_AUTH_MODULE.IAuthRepository,
+    );
   }
 
   async logIn(email: string, password: string): Promise<Auth> {
