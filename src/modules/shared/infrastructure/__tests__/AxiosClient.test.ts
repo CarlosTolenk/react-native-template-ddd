@@ -1,4 +1,4 @@
-import {AxiosClient} from '../infrastructure/AxiosClient';
+import {AxiosClient} from '../AxiosClient';
 
 describe('AxiosClient', () => {
   test('should', () => {
