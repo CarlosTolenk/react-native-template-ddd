@@ -16,7 +16,7 @@ export enum TYPE_AUTH_MODULE {
 
 export const moduleAuth = new Container();
 moduleAuth
-  .bind<IAuthRepository>(TYPE_AUTH_MODULE.IAuthLogInUseCase)
+  .bind<IAuthRepository>(TYPE_AUTH_MODULE.IAuthRepository)
   .to(AxiosAuthRepository);
 moduleAuth
   .bind<IAuthLogInUseCase>(TYPE_AUTH_MODULE.IAuthLogInUseCase)
