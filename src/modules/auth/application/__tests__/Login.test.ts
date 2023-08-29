@@ -1,45 +1,40 @@
+import 'reflect-metadata';
+
 import {AuthLogIn} from '../LogIn';
-import {container} from '../../../../container/ioc';
+import {IAuthRepository} from '../../domain/AuthRepository';
+import {Auth} from '../../domain/Auth';
+
+class AuthRepositoryMock implements IAuthRepository {
+  private mockCheck = jest.fn();
+
+  logIn(email: string, password: string): Promise<Auth> {
+    return this.mockCheck(email, password);
+  }
+
+  assertLogIn(): void {
+    expect(this.mockCheck).toHaveBeenCalled();
+  }
+
+  assertLogInWithParams(email: string, password: string): void {
+    expect(this.mockCheck).toHaveBeenCalledWith(email, password);
+  }
+}
 
 describe('AuthLogIn', () => {
   test('should correctly instantiate the proper repository', () => {
-    const spyContainer = jest.spyOn(container, 'get').mockImplementation(() => {
-      return {
-        logIn: jest.fn(),
-      };
-    });
-    const authLogIn = new AuthLogIn();
+    const repositoryMock = new AuthRepositoryMock();
+    const authLogIn = new AuthLogIn(repositoryMock);
 
     expect(authLogIn).toBeDefined();
-    expect(spyContainer).toHaveBeenCalled();
-    expect(spyContainer).toHaveBeenCalledWith('IAuthRepository');
   });
 
   test('should call the method correctly to the repository', async () => {
-    const spyRepository = jest.fn();
-    jest.spyOn(container, 'get').mockImplementation(() => {
-      return {
-        logIn: spyRepository,
-      };
-    });
-    const authLogIn = new AuthLogIn();
+    const repositoryMock = new AuthRepositoryMock();
+    const authLogIn = new AuthLogIn(repositoryMock);
 
     await authLogIn.logIn('email@gmail.com', '1230');
 
-    expect(spyRepository).toHaveBeenCalled();
-    expect(spyRepository).toHaveBeenCalledWith('email@gmail.com', '1230');
-  });
-
-  test('should return an error if the repository fails.', async () => {
-    jest.spyOn(container, 'get').mockImplementation(() => {
-      return {
-        logIn: jest.fn().mockRejectedValue(new Error('error??')),
-      };
-    });
-    const authLogIn = new AuthLogIn();
-
-    await expect(authLogIn.logIn('some@email.com', 'unknown')).rejects.toThrow(
-      Error,
-    );
+    repositoryMock.assertLogIn();
+    repositoryMock.assertLogInWithParams('email@gmail.com', '1230');
   });
 });

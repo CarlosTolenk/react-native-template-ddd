@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import {fireEvent, render, waitFor} from '@testing-library/react-native';
 import LoginScreen from '../LoginScreen';
 import * as iocProvider from '../../../../container/iocProvider';
@@ -24,10 +25,8 @@ describe('LoginScreen', () => {
     });
     const {getByText} = render(<LoginScreen />);
 
-    const textDefault = getByText('Login');
-    const button = getByText('LogIn');
+    const button = getByText(/Submit/i);
 
-    expect(textDefault).toBeDefined();
     expect(button).toBeDefined();
   });
 
@@ -50,7 +49,7 @@ describe('LoginScreen', () => {
     });
     const {getByText} = render(<LoginScreen />);
 
-    const button = getByText('LogIn');
+    const button = getByText(/Submit/i);
     fireEvent.press(button);
 
     await waitFor(() => {

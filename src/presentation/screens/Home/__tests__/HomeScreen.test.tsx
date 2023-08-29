@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import {fireEvent, render} from '@testing-library/react-native';
 import HomeScreen from '../HomeScreen';
 

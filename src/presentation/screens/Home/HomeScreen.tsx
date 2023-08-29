@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import {Button, Text, View, StyleSheet} from 'react-native';
 
-import {Button as Buttton, Overlay, Icon} from '@rneui/themed';
-
 import {useHomeViewModel} from './HomeViewModel';
 
 const HomeScreen = () => {
@@ -19,31 +17,9 @@ const HomeScreen = () => {
 
   return (
     <View>
-      <Buttton
-        title="Open Overlay"
-        onPress={toggleOverlay}
-        buttonStyle={styles.button}
-      />
+      <Text>Home</Text>
+      <Button title="Open Overlay" onPress={toggleOverlay} />
       <Button title="LogOut" onPress={onHandlerLogOut} />
-      <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
-        <Text style={styles.textPrimary}>Hello!</Text>
-        <Text style={styles.textSecondary}>
-          Welcome to React Native Elements
-        </Text>
-        <Buttton
-          icon={
-            <Icon
-              name="wrench"
-              type="font-awesome"
-              color="white"
-              size={25}
-              iconStyle={{marginRight: 10}}
-            />
-          }
-          title="Start Building"
-          onPress={toggleOverlay}
-        />
-      </Overlay>
     </View>
   );
 };

@@ -16,10 +16,6 @@ export class AuthLogIn implements IAuthLogInUseCase {
   }
 
   async logIn(email: string, password: string): Promise<Auth> {
-    try {
-      return this.repository.logIn(email, password);
-    } catch (error) {
-      throw error;
-    }
+    return this.repository.logIn(email, password);
   }
 }
