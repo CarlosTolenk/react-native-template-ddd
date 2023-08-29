@@ -28,18 +28,18 @@ describe('LoginScreen', () => {
         logIn: jest.fn().mockReturnValue('useInjection'),
       };
     });
-    const screen = render(<LoginScreen />);
+    const {getByText, getAllByPlaceholderText} = render(<LoginScreen />);
 
-    const buttonSubmit = screen.getByText(/Submit/i);
-    const inputEmail = screen.getAllByPlaceholderText(/Email/i);
-    const inputPassword = screen.getAllByPlaceholderText(/Password/i);
+    const buttonSubmit = getByText(/Submit/i);
+    const inputEmail = getAllByPlaceholderText(/Email/i);
+    const inputPassword = getAllByPlaceholderText(/Password/i);
 
     expect(inputEmail).toBeDefined();
     expect(inputPassword).toBeDefined();
     expect(buttonSubmit).toBeDefined();
   });
 
-  test.skip('should dispatch the action to log out when the button is pressed', async () => {
+  test('should dispatch the action to log out when the button is pressed', async () => {
     jest.spyOn(iocProvider, 'useInjection').mockImplementation(() => {
       return {
         logIn: jest.fn().mockResolvedValue(
@@ -56,10 +56,15 @@ describe('LoginScreen', () => {
         ),
       };
     });
-    const {getByText} = render(<LoginScreen />);
+    const {getByText, getAllByPlaceholderText} = render(<LoginScreen />);
 
-    const button = getByText(/Submit/i);
-    fireEvent.press(button);
+    const buttonSubmit = getByText(/Submit/i);
+    const inputEmail = getAllByPlaceholderText(/Email/i);
+    const inputPassword = getAllByPlaceholderText(/Password/i);
+
+    fireEvent.changeText(inputEmail[0], 'carlos@tolentino.com');
+    fireEvent.changeText(inputPassword[0], '123456');
+    fireEvent.press(buttonSubmit);
 
     await waitFor(() => {
       expect(mockUseDispatch).toHaveBeenCalledWith({
@@ -74,6 +79,30 @@ describe('LoginScreen', () => {
           token: 'token-valid',
         },
         type: 'auth/authLogIn',
+      });
+    });
+  });
+
+  test('should dispatch the action to log out when the button is pressed and show error for credentials invalid', async () => {
+    jest.spyOn(iocProvider, 'useInjection').mockImplementation(() => {
+      return {
+        logIn: jest.fn().mockRejectedValue(new Error('Error')),
+      };
+    });
+    const {getByText, getAllByPlaceholderText} = render(<LoginScreen />);
+
+    const buttonSubmit = getByText(/Submit/i);
+    const inputEmail = getAllByPlaceholderText(/Email/i);
+    const inputPassword = getAllByPlaceholderText(/Password/i);
+
+    fireEvent.changeText(inputEmail[0], 'carlos@tolentino.com');
+    fireEvent.changeText(inputPassword[0], '123456');
+    fireEvent.press(buttonSubmit);
+
+    await waitFor(() => {
+      expect(mockUseDispatch).toHaveBeenCalledWith({
+        payload: 'Error',
+        type: 'auth/authError',
       });
     });
   });
