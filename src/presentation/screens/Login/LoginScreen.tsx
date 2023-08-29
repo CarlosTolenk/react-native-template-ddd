@@ -13,7 +13,7 @@ const LoginScreen = () => {
 
   const onHandlerLogIn = (value: ILogin) => {
     console.log(value);
-    // login('carlos', 'password');
+    login('carlos', 'password');
   };
 
   return (
