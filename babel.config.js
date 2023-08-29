@@ -5,6 +5,7 @@ module.exports = {
   ],
   plugins: [
     '@babel/plugin-transform-class-static-block',
+    'module-resolver',
     ['@babel/plugin-proposal-decorators', {version: 'legacy'}],
     [
       '@babel/plugin-proposal-class-properties',

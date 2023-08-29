@@ -14,6 +14,7 @@ const AppConfig = () => {
   const windowHeight = Dimensions.get('window').height;
 
   return (
+    // @ts-ignore
     <ProviderInversify container={container}>
       <Provider store={store}>
         <PersistGate persistor={persist} loading={null}>
