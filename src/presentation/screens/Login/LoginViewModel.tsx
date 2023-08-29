@@ -6,6 +6,7 @@ import {IAuthLogInUseCase} from '../../../modules/auth/application/LogIn';
 
 // Store
 import {authError, authLogIn} from '../../../store/states/authReducer';
+import {TYPE_AUTH_MODULE} from '../../../modules/auth/module';
 
 interface ILoginViewModel {
   login(email: string, password: string): void;
@@ -13,7 +14,9 @@ interface ILoginViewModel {
 
 export const useLoginViewModel = (): ILoginViewModel => {
   const dispatch = useDispatch();
-  const useCase = useInjection<IAuthLogInUseCase>('IAuthLogInUseCase');
+  const useCase = useInjection<IAuthLogInUseCase>(
+    TYPE_AUTH_MODULE.IAuthLogInUseCase,
+  );
 
   async function login(email: string, password: string) {
     try {
