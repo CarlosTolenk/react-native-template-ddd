@@ -11,5 +11,6 @@ module.exports = {
       babelConfig: true,
     },
   },
+  coveragePathIgnorePatterns: ['/node_modules/', 'module.ts'],
   cacheDirectory: '.jest/cache',
 };
